@@ -24,7 +24,9 @@ git clone https://github.com/dlsucomet/Lightpost.git
 ```
 
 ## Usage
-Here is an example workflow that uses the ```lightpost.engine```, ```lightpost.estimators```, and ```lightpost.datapipe``` interfaces. 
+Here are a few examples on Lightpost-powered workflows. For a detailed demo, check out our [demo notebook](https://github.com/dlsucomet/Lightpost/blob/master/Lightpost%20Test.ipynb)!
+
+This is an example workflow that uses the ```lightpost.engine```, ```lightpost.estimators```, and ```lightpost.datapipe``` interfaces for simple classification. 
 
 ```python
 from lightpost.datapipe import Datapipe
