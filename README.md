@@ -4,9 +4,9 @@
 Lightpost is an automated neural networks training interface written in Python and runs on top of the [PyTorch](https://github.com/pytorch/pytorch) framework. It was developed with fast and seamless prototyping in mind. It is made up of four core modules:
 
 * ```lightpost.engine``` - An automated neural networks training engine that enables quick training pipelines.
-* ```lightpost.datapipe``` - An automated data pipeline that seamlessly converts data into trainable batches using preprocessing pipelines.
-* ```lightpost.estimators``` - Provides ready-built models adaptable to different tasks, integrateable and extensible using PyTorch.
-* ```lightpost.utils``` - Provides various utility functions for general tasks and specialized (NLP, Vision) tasks.
+* ```lightpost.datapipe``` - An automated data preprocessing pipeline that seamlessly converts data into trainable batches.
+* ```lightpost.estimators``` - Provides prewritten models for different tasks, integrateable and extensible using PyTorch.
+* ```lightpost.utils``` - Provides various utility functions for general and specialized (NLP, Vision, etc) tasks.
 
 The Lightpost Project is built with inter-operability at its core. It is friendly and plays well with your existing frameworks and modules.
 
@@ -53,7 +53,7 @@ Lightpost's specialized data pipelines can be used for more special cases. Here 
 
 ```python
 from lightpost.datapipe import Textpipe
-from lightpost.estimators import LSTMTextClassifier
+from lightpost.estimators import LSTMClassifier
 from lightpost.engine import Engine
 
 # Automatically preprocesses the text dataset
@@ -125,3 +125,12 @@ engine.save_weights('model.pt')
 * Streamlined the ```lightpost.engine``` and ```lightpost.datapipe``` APIs.
 * Added NLP support in ```lightpost.utils.text``` for standard NLP preprocessing functions.
 * Fixed optimization bugs when training using the engine.
+
+## Missing Features
+Before we increment the version counter, we'll make sure these features are implemented. You might see nightly builds with these features in alpha-stage, so do be careful.
+**For 0.1 Release**
+* CUDA Support
+* Computer Vision support in ```lightpost.datapipe```, called ```Imagepipe```
+* Computer Vision utility functions under ```lightpost.utils.vision```
+* Support for dynamic learning (weight sharing, twin networks, etc)
+* Support for one-shot/few-shot training pipelines **(currently in alpha stage)**
