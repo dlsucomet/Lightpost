@@ -1,4 +1,4 @@
-from ..utils.text import preprocess, split_data, tokenize_array, pad, tokenize
+from ..utils.text import preprocess, split_data, tokenize_array, pad, tokenize, serialize
 from ..utils.embeddings import build_embedding
 from ..utils.general import generate_loaders, split
 
@@ -24,6 +24,8 @@ class Datapipe:
 		self.batch_size = batch_size
 		X_train, X_test, y_train, y_test = split(self.X, self.y)
 		self.train_loader, self.val_loader = generate_loaders(X_train, X_test, y_train, y_test, batch_size)
+		self.X = Variable(torch.from_numpy(self.X).float())
+		self.y = Variable(torch.from_numpy(self.y).long())
 
 
 class Textpipe:
@@ -48,6 +50,8 @@ class Textpipe:
 		X_train, X_test, y_train, y_test = split_data(self.X, self.y)
 		self.batch_size = batch_size
 		self.train_loader, self.val_loader = generate_loaders(X_train, X_test, y_train, y_test, batch_size)
+		self.X = Variable(torch.from_numpy(self.X).long())
+		self.y = Variable(torch.from_numpy(self.y).long())
 
 		if not pretrained_embeddings:
 			self.embedding = nn.Embedding(self.vocab_len, embed_dim)

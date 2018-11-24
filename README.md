@@ -18,13 +18,13 @@ Lightpost depends on the following packages:
 * TorchText 0.4.x
 * TorchVision 0.4.x
 
-Clone the repository to your machine in the directory o your projects.
+Clone the repository to your machine in the directory of your projects.
 ```
 git clone https://github.com/dlsucomet/Lightpost.git
 ```
 
 ## Usage
-Here is an example workflow that uses the ```lightpost.engine```, ```lightpost.estimators```, and ```lightpost.datapipe``` interfaces.
+Here is an example workflow that uses the ```lightpost.engine```, ```lightpost.estimators```, and ```lightpost.datapipe``` interfaces. 
 
 ```python
 from lightpost.datapipe import Datapipe
@@ -62,9 +62,9 @@ pipe = Textpipe(path='data/train.csv', text='comments', target='sentiment', maxl
                 pretrained_embeddings=True, embed_path='vectors/wiki.en.vec', embed_dim=300)
 
 # Create the LSTM Text Model with pretrained embeddings automatically loaded using a datapipe
-model = LSTMTextClassifier(pretrained=pipe.embedding, embedding_dim=pipe.embed_dim, 
-                           hidden_dim=256, output_dim=2, bidirectional=True, recur_layers=2, 
-                           recur_dropout=0.2, dropout=0.5)
+model = LSTMClassifier(pretrained=pipe.embedding, embedding_dim=pipe.embed_dim, 
+                       hidden_dim=256, output_dim=2, bidirectional=True, recur_layers=2, 
+                       recur_dropout=0.2, dropout=0.5)
 
 # Construct the engine with a learning rate decay scheduler
 engine = Engine(pipeline=pipe, model=model, criterion='cross_entropy', optimizer='adam', scheduler='plateau')
