@@ -126,11 +126,23 @@ engine.save_weights('model.pt')
 * Added NLP support in ```lightpost.utils.text``` for standard NLP preprocessing functions.
 * Fixed optimization bugs when training using the engine.
 
-## Missing Features
-Before we increment the version counter, we'll make sure these features are implemented. You might see nightly builds with these features in alpha-stage, so do be careful.
-**For 0.1 Release**
+## Releases and Contribution
+**Release Cycle.** Lightpost is under a non-regular release cycle. It's currently in Alpha state, where bugs are expected when you try to forcefully do things Lightpost isn't supposed to.
+
+If you encounter bugs, please report them in our [GitHub Issues](https://github.com/dlsucomet/Lightpost/issues) tracker.
+
+**Feature Requests.** Before we increment the version counter, we'll make sure some noted features are implemented. You might see nightly builds with these features in alpha-stage, so do be careful. For feature requests, please drop by to our [GitHub Issues](https://github.com/dlsucomet/Lightpost/issues) tracker and we'll discuss with you there.
+
+*Scheduled for 0.1 Release:*
 * CUDA Support
 * Computer Vision support in ```lightpost.datapipe```, called ```Imagepipe```
 * Computer Vision utility functions under ```lightpost.utils.vision```
 * Support for dynamic learning (weight sharing, twin networks, etc)
-* Support for one-shot/few-shot training pipelines **(currently in alpha stage)**
+* Support for one-shot/few-shot training pipelines *(currently in alpha stage)*
+
+## Acknowledgements
+The Lightpost Project was born out of a need for seamless experimentation on multiple models. In research, we often test models multiple times with different hyperparameters and settings. Jupyter notebooks would rarely cut the job once we're working on so many things at once. A dynamic training framework that can be written in the form of small scripts was needed.
+
+Special thanks to Daniel Stanley Tan, whose seamless GAN training scripts provided the initial inspiration for Lightpost, as well as to Briane Paul Samson for the constant support during development. Lightpost, while mainly maintained by a group of researchers, owes itself to helpful contributions from the community in various forms. Acknowledgements are also on the way for the researchers of the DLSU Center for Complexity and Emerging Technologies, its lab head Jordan Aiko Deja, and its faithful leadership team.
+
+Project Lightpost is developed, maintained, and managed by the DLSU Machine Learning Group. 
