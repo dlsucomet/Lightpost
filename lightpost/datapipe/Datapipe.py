@@ -15,6 +15,7 @@ class Datapipe:
 	Args:
 		X: Input array of features (may be numpy arrays or python lists).
 		y: Input array of targets.
+		types: Target tensor types for feature and target arrays
 		batch_size: Batch size to be used when splitting in batches.
 	
 	"""
