@@ -24,7 +24,11 @@ class Datapipe:
 		self.batch_size = batch_size
 		X_train, X_test, y_train, y_test = split_convert(X, y, types)
 		self.train_loader, self.val_loader = generate_loaders(X_train, X_test, y_train, y_test, batch_size)
-		
+
+
+class CSVPipe:
+	def __init__(self, path, features, targets, types, batch_size=32):
+		pass
 
 
 class Textpipe:
