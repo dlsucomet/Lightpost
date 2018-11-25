@@ -1,6 +1,6 @@
 from ..utils.text import preprocess, split_data, tokenize_array, pad, tokenize, serialize
 from ..utils.embeddings import build_embedding
-from ..utils.general import generate_loaders, split
+from ..utils.general import generate_loaders, split, split_convert, pair_to_tensor
 
 import torch
 from torch.autograd import Variable
@@ -18,14 +18,12 @@ class Datapipe:
 		batch_size: Batch size to be used when splitting in batches.
 	
 	"""
-	def __init__(self, X, y, batch_size=32):
-		self.X = X
-		self.y = y 
+	def __init__(self, X, y, types=('float', 'long'), batch_size=32):
+		self.X, self.y = pair_to_tensor(X, y, types)
 		self.batch_size = batch_size
-		X_train, X_test, y_train, y_test = split(self.X, self.y)
+		X_train, X_test, y_train, y_test = split_convert(X, y, types)
 		self.train_loader, self.val_loader = generate_loaders(X_train, X_test, y_train, y_test, batch_size)
-		self.X = Variable(torch.from_numpy(self.X).float())
-		self.y = Variable(torch.from_numpy(self.y).long())
+		
 
 
 class Textpipe:
