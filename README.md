@@ -19,9 +19,16 @@ Lightpost depends on the following packages:
 * TorchVision 0.4.x
 
 Clone the repository to your machine in the directory of your projects.
-```
+```bash
 git clone https://github.com/dlsucomet/Lightpost.git
 ```
+
+Then run the setup script.
+```bash
+python3 setup.py install
+```
+
+This should install the ```lightpost``` package, which is trackable by pip. To uninstall, run ```pip3 uninstall lightpost``` just like any other pip-based package.
 
 ## Usage
 Here are a few examples on Lightpost-powered workflows. For a detailed demo, check out our [demo notebook](https://github.com/dlsucomet/Lightpost/blob/master/Lightpost%20Test.ipynb)!
