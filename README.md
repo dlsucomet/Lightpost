@@ -13,10 +13,12 @@ The Lightpost Project is built with inter-operability at its core. It is friendl
 Lightpost is currently in development. Be sure to check the repo freely for updates!
 
 ## Prerequisites and Installation
-Lightpost depends on the following packages:
+Lightpost runs on Python 3.6 and depends on the following packages:
 * PyTorch 0.4.x
 * TorchText 0.4.x
 * TorchVision 0.4.x
+* Tensorflow 1.12
+* TensorboardX 1.4
 
 Clone the repository to your machine in the directory of your projects.
 ```bash
@@ -46,7 +48,7 @@ d = load_iris() # We'll use the iris dataset
 # Construct a pipeline from the iris dataset then build the engine
 pipe = Datapipe(d.data, d.target)
 model = MLPClassifier(input_dim=4, hidden_dim=128, output_dim=3, num_layers=3)
-engine = Engine(pipeline=pipe, model=model, criterion='cross_entropy', optimizer='adam')
+engine = Engine(pipeline=pipe, model=model, criterion='cross_entropy', optimizer='adam', use_tensorboard=True)
 
 # Train the model for 1000 epochs, printing the losses and accuracies every 100 epochs
 engine.fit(epochs=1000, print_every=100, disable_tqdm=True)
@@ -55,6 +57,8 @@ engine.fit(epochs=1000, print_every=100, disable_tqdm=True)
 engine.save_weights('model.pt')
 
 ```
+
+The ```use_tensorboard``` option allows you to use Tensorboard to log the engine's training statistics. Using ```use_tensorboard=True``` will create a directory named ```runs``` in the directory you are working in. To run Tensorboard, run ```tensorboard --logdir runs``` in a terminal.
 
 Lightpost's specialized data pipelines can be used for more special cases. Here is an example workflow for an NLP task, sentiment classification:
 
@@ -132,6 +136,7 @@ engine.save_weights('model.pt')
 * Streamlined the ```lightpost.engine``` and ```lightpost.datapipe``` APIs.
 * Added NLP support in ```lightpost.utils.text``` for standard NLP preprocessing functions.
 * Fixed optimization bugs when training using the engine.
+* Added Tensorboard support.
 
 ## Releases and Contribution
 **Release Cycle.** Lightpost is under a non-regular release cycle. It's currently in Alpha state, where bugs are expected when you try to forcefully do things Lightpost isn't supposed to.
