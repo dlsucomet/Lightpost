@@ -5,6 +5,8 @@ import torch.nn.functional as F
 import torch.optim as optim
 import torch.utils.data as data_utils
 
+from tensorboardX import SummaryWriter
+
 from .solvers import train, evaluate, accuracy, evaluate_batch
 
 from tqdm import tqdm
@@ -24,12 +26,16 @@ class Engine:
 
 	"""
 
-	def __init__(self, pipeline, model, criterion='cross_entropy', optimizer='adam', scheduler=None, lr=1e-4):
+	def __init__(self, pipeline, model, criterion='cross_entropy', optimizer='adam', scheduler=None, lr=1e-4, use_tensorboard=False):
 		self.model = model
 		self.optimizer = self.build_optimizer(self.model, optimizer, lr)
 		self.criterion = self.build_criterion(criterion)
 		self.pipeline = pipeline
 		self.scheduler = self.build_scheduler(scheduler)
+		self.tensorboard = None
+
+		if use_tensorboard:
+			self.tensorboard = SummaryWriter()
 
 	def fit(self, epochs=1, print_every=1, disable_tqdm=False):
 		r"""Trains the engine's model for a number of epochs and logs it.
@@ -45,7 +51,13 @@ class Engine:
 		    val_loss, val_acc = evaluate(self.model, self.criterion, self.pipeline.val_loader, disable_tqdm=disable_tqdm)
 		    if self.scheduler is not None:
 		    	self.scheduler.step(val_loss)
-		    
+
+		    if self.tensorboard is not None:
+		    	self.tensorboard.add_scalar('train_loss', train_loss, e)
+		    	self.tensorboard.add_scalar('train_acc', train_acc, e)
+		    	self.tensorboard.add_scalar('val_loss', val_loss, e)
+		    	self.tensorboard.add_scalar('val_acc', val_acc, e)
+		    	
 		    if e % print_every == 0:
 		    	print("Epoch {:5} | Train Loss {:.4f} | Train Acc {:.4f} | Val Loss {:.4f} | Val Acc {:.4f}".format(e, train_loss, train_acc, val_loss, val_acc))
 
