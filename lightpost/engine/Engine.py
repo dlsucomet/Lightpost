@@ -23,6 +23,7 @@ class Engine:
 		optimizer: Name of the optimizer to be used. A custom optimizer could also be used.
 		scheduler: Name of the learning rate scheduler. Defaultly set to None.
 		lr: Learning rate to be used for the optimizer.
+		use_tensorboard: Toggle True to use the Tensorboard Visualization Tool
 
 	"""
 

@@ -1,5 +1,5 @@
 from ..utils.text import preprocess, split_data, tokenize_array, pad, tokenize, serialize
-from ..utils.embeddings import build_embedding
+from ..utils.embeddings import build_embedding, visualize_embeddings
 from ..utils.general import generate_loaders, split, split_convert, pair_to_tensor
 
 import torch
@@ -58,9 +58,11 @@ class Textpipe:
 
 		if not pretrained_embeddings:
 			self.embedding = nn.Embedding(self.vocab_len, embed_dim)
+			self.embedding.weight.requires_grad = False
 			self.embed_dim = embed_dim
+			self.embedding_vectors = None
 		else:
-			self.embedding, self.embed_dim = self.generate_embedding(embed_path, embed_dim)
+			self.embedding, self.embed_dim, self.embedding_vectors = self.generate_embedding(embed_path, embed_dim)
 
 	def generate_embedding(self, path, dimensions):
 		r"""Generates an embedding layer based on a vector of pretrained embeddings.
@@ -72,7 +74,7 @@ class Textpipe:
 
 		v = vocab.Vectors(path)
 		emb = build_embedding(self.vocab_dict, self.vocab_len, dimensions, v)
-		return emb, dimensions
+		return emb, dimensions, v
 
 	def load_pretrained_embeddings(self, path, dimensions):
 		r"""Sets the pretrained embeddings to be used within the pipeline.
@@ -83,6 +85,14 @@ class Textpipe:
 		"""
 
 		self.embedding, self.embed_dim = self.generate_embedding(path, dimensions)
+
+	def visualize_pretrained_embeddings(self):
+		"""Visualizes the loaded pretrained embeddings.
+
+		Alias for ```lightpost.utils.embeddings.visualize_embeddings(self.embedding_vectors.vectors, self.embedding_vectors.itos)```
+	
+		"""
+		visualize_embeddings(self.embedding_vectors)
 
 	def process_test_data(self, path, text):
 		r"""Preprocesses text data from a holdout test set based on the vocabulary of the training set.
