@@ -62,7 +62,7 @@ def evaluate_batch(model, criterion, X, y):
     
     return loss.item(), acc
 
-def train(model, criterion, optimizer, train_loader, disable_tqdm=False):
+def train(model, criterion, optimizer, train_loader, disable_tqdm=False, epoch=''):
     r"""Trains the model for a single epoch.
 
     Args:
@@ -77,7 +77,7 @@ def train(model, criterion, optimizer, train_loader, disable_tqdm=False):
     epoch_loss = 0
     epoch_acc = 0
     
-    for batch in tqdm(train_loader, disable=disable_tqdm):
+    for batch in tqdm(train_loader, disable=disable_tqdm, desc='Training Epoch ' + str(epoch)):
         X, y = batch
         loss, acc = train_batch(model, criterion, optimizer, X, y)
         epoch_loss += loss
@@ -88,7 +88,7 @@ def train(model, criterion, optimizer, train_loader, disable_tqdm=False):
     
     return epoch_loss, epoch_acc
 
-def evaluate(model, criterion, train_loader, disable_tqdm=False):
+def evaluate(model, criterion, train_loader, disable_tqdm=False, epoch=''):
     r"""Evaluates the model for a single epoch.
 
     Args:
@@ -102,7 +102,7 @@ def evaluate(model, criterion, train_loader, disable_tqdm=False):
     epoch_acc = 0
     
     with torch.no_grad():
-        for batch in tqdm(train_loader, disable=disable_tqdm):
+        for batch in tqdm(train_loader, disable=disable_tqdm, desc='Testing Epoch ' + str(epoch)):
             X, y = batch
             loss, acc = evaluate_batch(model, criterion, X, y)
             epoch_loss += loss

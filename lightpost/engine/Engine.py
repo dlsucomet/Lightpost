@@ -48,8 +48,8 @@ class Engine:
 
 		"""
 		for e in range(1, epochs + 1):
-		    train_loss, train_acc = train(self.model, self.criterion, self.optimizer, self.pipeline.train_loader, disable_tqdm=disable_tqdm)
-		    val_loss, val_acc = evaluate(self.model, self.criterion, self.pipeline.val_loader, disable_tqdm=disable_tqdm)
+		    train_loss, train_acc = train(self.model, self.criterion, self.optimizer, self.pipeline.train_loader, disable_tqdm=disable_tqdm, epoch=e)
+		    val_loss, val_acc = evaluate(self.model, self.criterion, self.pipeline.val_loader, disable_tqdm=disable_tqdm, epoch=e)
 		    if self.scheduler is not None:
 		    	self.scheduler.step(val_loss)
 
