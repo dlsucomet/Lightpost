@@ -17,7 +17,7 @@ Lightpost runs on Python 3.6 and depends on the following packages:
 * PyTorch 0.4.x
 * TorchText 0.4.x
 * TorchVision 0.4.x
-* Tensorflow 1.12
+* Tensorflow 1.12 (for Tensorboard Support)
 * TensorboardX 1.4
 
 Clone the repository to your machine in the directory of your projects.
@@ -130,27 +130,21 @@ engine.save_weights('model.pt')
 
 ```
 
-## Changelogs
-**Version 0.0.3**
-* Added ```lightpost.estimators``` API with two models.
-* Streamlined the ```lightpost.engine``` and ```lightpost.datapipe``` APIs.
-* Added NLP support in ```lightpost.utils.text``` for standard NLP preprocessing functions.
-* Fixed optimization bugs when training using the engine.
-* Added Tensorboard support.
+## Features We're Working On
+Before we increment the version counter, we'll make sure that some important features are included. You might see these features in alpha stage in nightly builds, which might break your setups, so be careful!
+
+**For Version 0.1 Release**
+* CUDA support with automated mixed precision (FP16) training to double/maximize GPU memory
+* Computer Vision support in ```lightpost.datapipe```, called ```Imagepipe```
+* Computer Vision utility functions under ```lightpost.utils.vision```
+* Support for one-shot/few-shot training pipelines *(currently in alpha stage)*
 
 ## Releases and Contribution
 **Release Cycle.** Lightpost is under a non-regular release cycle. It's currently in Alpha state, where bugs are expected when you try to forcefully do things Lightpost isn't supposed to.
 
 If you encounter bugs, please report them in our [GitHub Issues](https://github.com/dlsucomet/Lightpost/issues) tracker.
 
-**Feature Requests.** Before we increment the version counter, we'll make sure some noted features are implemented. You might see nightly builds with these features in alpha-stage, so do be careful. For feature requests, please drop by to our [GitHub Issues](https://github.com/dlsucomet/Lightpost/issues) tracker and we'll discuss with you there.
-
-*Scheduled for 0.1 Release:*
-* CUDA Support
-* Computer Vision support in ```lightpost.datapipe```, called ```Imagepipe```
-* Computer Vision utility functions under ```lightpost.utils.vision```
-* Support for dynamic learning (weight sharing, twin networks, etc)
-* Support for one-shot/few-shot training pipelines *(currently in alpha stage)*
+**Feature Requests.** For feature requests, please drop by to our [GitHub Issues](https://github.com/dlsucomet/Lightpost/issues) tracker and we'll discuss with you there.
 
 ## Acknowledgements
 The Lightpost Project was born out of a need for seamless experimentation on multiple models. In research, we often test models multiple times with different hyperparameters and settings. Jupyter notebooks would rarely cut the job once we're working on so many things at once. A dynamic training framework that can be written in the form of small scripts was needed.
