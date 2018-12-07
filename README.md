@@ -3,8 +3,8 @@
 ## 
 Lightpost is an automated neural networks training interface written in Python and runs on top of the [PyTorch](https://github.com/pytorch/pytorch) framework. It was developed with fast and seamless prototyping in mind. It is made up of four core modules:
 
-* ```lightpost.engine``` - An automated neural networks training engine that enables quick training pipelines.
-* ```lightpost.datapipe``` - An automated data preprocessing pipeline that seamlessly converts data into trainable batches.
+* ```lightpost.engine``` - An automated neural network training engine.
+* ```lightpost.datapipe``` - An automatic data preprocessing pipeline. Seamlessly converts data into trainable batches.
 * ```lightpost.estimators``` - Provides prewritten models for different tasks, integrateable and extensible using PyTorch.
 * ```lightpost.utils``` - Provides various utility functions for general and specialized (NLP, Vision, etc) tasks.
 
