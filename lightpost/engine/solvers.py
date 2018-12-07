@@ -77,14 +77,19 @@ def train(model, criterion, optimizer, train_loader, disable_tqdm=False, epoch='
     epoch_loss = 0
     epoch_acc = 0
     
-    for batch in tqdm(train_loader, disable=disable_tqdm, desc='Training Epoch ' + str(epoch)):
-        X, y = batch
-        loss, acc = train_batch(model, criterion, optimizer, X, y)
-        epoch_loss += loss
-        epoch_acc += acc
-    
-    epoch_loss /= len(train_loader)
-    epoch_acc /= len(train_loader)
+    with tqdm(total=len(train_loader), desc='Epoch {:5} (Training)'.format(epoch), disable=disable_tqdm) as t:
+        for batch in train_loader:
+            X, y = batch
+            loss, acc = train_batch(model, criterion, optimizer, X, y)
+            epoch_loss += loss
+            epoch_acc += acc
+            t.set_postfix_str("Batch Loss: {:.4f} -- Batch Acc: {:.4f}".format(loss, acc))
+            t.update()
+        
+        epoch_loss /= len(train_loader)
+        epoch_acc /= len(train_loader)
+        t.set_postfix_str("Training Loss: {:.4f} -- Training Acc: {:.4f}".format(loss, acc))
+        t.update()
     
     return epoch_loss, epoch_acc
 
@@ -102,13 +107,20 @@ def evaluate(model, criterion, train_loader, disable_tqdm=False, epoch=''):
     epoch_acc = 0
     
     with torch.no_grad():
-        for batch in tqdm(train_loader, disable=disable_tqdm, desc='Testing Epoch ' + str(epoch)):
-            X, y = batch
-            loss, acc = evaluate_batch(model, criterion, X, y)
-            epoch_loss += loss
-            epoch_acc += acc
-    
-    epoch_loss /= len(train_loader)
-    epoch_acc /= len(train_loader)
+        with tqdm(total=len(train_loader), desc='Epoch {:5} (Testing) '.format(epoch), disable=disable_tqdm) as t:
+            for batch in train_loader:
+                X, y = batch
+                loss, acc = evaluate_batch(model, criterion, X, y)
+                epoch_loss += loss
+                epoch_acc += acc
+                t.set_postfix_str("Batch Loss: {:.4f} -- Batch Acc: {:.4f}".format(loss, acc))
+                t.update()
+            epoch_loss /= len(train_loader)
+            epoch_acc /= len(train_loader)
+            t.set_postfix_str("Evaluate Loss: {:.4f} -- Evaluate Acc: {:.4f}".format(loss, acc))
+            t.update()
+
+    if not disable_tqdm:
+        print()
     
     return epoch_loss, epoch_acc
